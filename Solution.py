@@ -1,4 +1,6 @@
 import enum
+from functools import cmp_to_key
+from time import time
 from typing import List
 
 class Solution:
@@ -93,12 +95,38 @@ class Solution:
             else:
                 return True
         return False
-
-
-
-
-
+    #539
+    def findMinDifference(self, timePoints: List[str]) -> int:
+        def cmp(time1, time2):
+            t1 = time1.split(':')
+            t2 = time2.split(':')
+            if int(t1[0]) > int(t2[0]):
+                return 1
+            elif int(t1[0]) < int(t2[0]):
+                return -1
+            else:
+                if int(t1[1]) > int(t2[1]):
+                    return 1
+                else: 
+                    return -1
+        def diff(time1, time2):
+            t1 = time1.split(':')
+            t2 = time2.split(':')
+            return 60 * (int(t2[0]) - int(t1[0])) + (int(t2[1]) - int(t1[1]))
+        if len(timePoints) > 1440:
+            return 0
+        timePoints.sort(key=cmp_to_key(cmp))
+        print(timePoints)
+        target = 1 << 31 
+        for i, item in enumerate(timePoints):
+            if i + 1 < len(timePoints):
+                dif = diff(timePoints[i], timePoints[i+1])
+            else:
+                dif = 24 * 60 - diff(timePoints[0], timePoints[i]) 
+            target = dif if dif < target else target
+        return target
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.containsNearbyDuplicateII([1,0,1,1], 1))
+    print(solution.findMinDifference(['01:33', "14:55", "23:24"]))
+
