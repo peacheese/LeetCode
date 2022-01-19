@@ -1,5 +1,4 @@
 import enum
-from tkinter import S
 from typing import List
 
 class Solution:
@@ -63,7 +62,43 @@ class Solution:
                 target += single_vocab[s[i]]
                 i += 1
         return target
+    #219
+    def containsNearbyDuplicateI(self, nums: List[int], k: int) -> bool:
+        a = {}
+        for i, num in enumerate(nums):
+            if num not in a:
+                a[num] = [i]
+            else:
+                if i - a[num][len(a[num]) - 1] <= k:
+                    return True
+                else:
+                    a[num].append(i)
+        return False
+    def containsNearbyDuplicateII(self, nums: List[int], k: int) -> bool:
+        a = set()
+        begin = 0
+        end = min(k, len(nums)-1)
+        for i in range(end + 1):
+            if nums[i] in a:
+                return True
+            a.add(nums[i])
+        while True:
+            end += 1
+            if end >= len(nums):
+                break
+            a.remove(nums[begin])
+            begin += 1
+            if nums[end] not in a:
+                a.add(nums[end])
+            else:
+                return True
+        return False
+
+
+
+
+
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.romanToInt('MCMI'))
+    print(solution.containsNearbyDuplicateII([1,0,1,1], 1))
