@@ -169,10 +169,28 @@ class Solution:
             else:
                 l2 = l2.next
         return tgt
+    #14
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        def commonPrefix(s1, s2):
+            prefix = ''
+            length = min(len(s1), len(s2))
+            for i in range(length):
+                if s1[i] == s2[i]:
+                    prefix += s1[i]
+                else:
+                    break
+            return prefix
+        if len(strs) == 1:
+            return strs[0]
+        elif len(strs) == 2:
+            return commonPrefix(strs[0], strs[1])
+        else:
+            return commonPrefix(self.longestCommonPrefix(strs[0: len(strs) // 2]), self.longestCommonPrefix(strs[len(strs) // 2: len(strs)]))
 
-                
+
+            
         
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.findMinDifference(['01:33', "14:55", "23:24"]))
+    print(solution.longestCommonPrefix(['hello', 'heelw', 'helllw', 'holla']))
 
