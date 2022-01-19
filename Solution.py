@@ -3,6 +3,11 @@ from functools import cmp_to_key
 from time import time
 from typing import List
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 class Solution:
     #1
     def twoSum(self, nums: List[int], target: int) -> List[int]: 
@@ -125,7 +130,48 @@ class Solution:
                 dif = 24 * 60 - diff(timePoints[0], timePoints[i]) 
             target = dif if dif < target else target
         return target
+    #2
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        tgt = ListNode()
+        prev = None
+        now = tgt
+        l1HasNext = True
+        l2HasNext = True
+        while True:
+            if l1HasNext and l2HasNext:
+                now.next = ListNode()
+                now.next.val += (now.val + l1.val + l2.val) // 10
+                now.val = (now.val + l1.val + l2.val) % 10
+                prev = now
+                now = now.next
+            elif l1HasNext:
+                now.next = ListNode()
+                now.next.val += (now.val + l1.val) // 10
+                now.val = (now.val + l1.val) % 10
+                prev = now
+                now = now.next
+            elif l2HasNext:
+                now.next = ListNode()
+                now.next.val += (now.val + l2.val) // 10
+                now.val = (now.val + l2.val) % 10
+                prev = now
+                now = now.next
+            else:
+                if now.val == 0:
+                    prev.next = None
+                break
+            if not l1.next:
+                l1HasNext = False
+            else:
+                l1 = l1.next
+            if not l2.next:
+                l2HasNext = False
+            else:
+                l2 = l2.next
+        return tgt
 
+                
+        
 if __name__ == '__main__':
     solution = Solution()
     print(solution.findMinDifference(['01:33', "14:55", "23:24"]))
