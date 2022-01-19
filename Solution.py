@@ -186,11 +186,27 @@ class Solution:
             return commonPrefix(strs[0], strs[1])
         else:
             return commonPrefix(self.longestCommonPrefix(strs[0: len(strs) // 2]), self.longestCommonPrefix(strs[len(strs) // 2: len(strs)]))
-
+    #20
+    def isValid(self, s: str) -> bool:
+        if len(s) % 2 == 1:
+            return False
+        stack = []
+        left = ['(', '[', '{']
+        match = {')':'(', ']':'[', '}':'{'}
+        for ch in s:
+            if ch in left:
+                stack.append(ch)
+            else:
+                if len(stack) == 0 or match[ch] != stack.pop():
+                    return False
+        return True if len(stack) == 0 else False
+    #3
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        
 
             
         
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.longestCommonPrefix(['hello', 'heelw', 'helllw', 'holla']))
+    print(solution.isValid('[]()[}{}'))
 
