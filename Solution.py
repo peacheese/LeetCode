@@ -230,12 +230,26 @@ class Solution:
                 list2 = list2.next
         now.next = list1 if list1 else list2 if list2 else None
         return prev.next
+    #26
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
+        for num in nums:
+            if num != nums[i]:
+                i += 1
+                nums[i] = num
+        return i + 1
+    #27
+    def removeElement(self, nums: List[int], val: int) -> int:
+        i = 0
+        for num in nums:
+            if num != val:
+                nums[i] = num
+                i += 1
+        return i
+
 
 
 if __name__ == '__main__':
     solution = Solution()
-    list1 = ListNode(1)
-    list1.next = ListNode(2)
-    list2 = ListNode(1.5)
-    print(solution.mergeTwoLists(list2, list1))
+    print(solution.removeDuplicates([1, 2, 2, 4, 5, 6, 6, 7]))
 
