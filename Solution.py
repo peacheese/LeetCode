@@ -1,6 +1,8 @@
 import enum
 from functools import cmp_to_key
+from sre_constants import MAX_UNTIL
 from time import time
+from tkinter.tix import Tree
 from typing import List
 
 class ListNode:
@@ -202,11 +204,25 @@ class Solution:
         return True if len(stack) == 0 else False
     #3
     def lengthOfLongestSubstring(self, s: str) -> int:
-        
-
+        if s == '':
+            return 0
+        window = [s[0]]
+        maxlen = 1
+        end = 0
+        while True:
+            if end == len(s) - 1:
+                break
+            if s[end + 1] not in window:
+                end += 1
+                window.append(s[end])
+                maxlen = len(window) if maxlen < len(window) else maxlen
+            else:
+                del(window[0])
+        return maxlen
             
         
+
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.isValid('[]()[}{}'))
+    print(solution.lengthOfLongestSubstring("bpoiexpqhmebhhu"))
 
