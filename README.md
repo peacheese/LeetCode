@@ -114,3 +114,27 @@ def longestCommonPrefix(self, strs):
 给定一个字符串 `s` ，请你找出其中不含有重复字符的 **最长子串** 的长度。
 
 解：滑动窗口，这个问题要注意到最长子串的滑动窗口左边递增，右边一定是递增的，不存在左边递增，右边会比原来少的情况，因为你左边递增窗口内字符减少，对右边无重复字符的要求变宽了，右边的空间应该更多才是，所以只需要左右扫描两次就可以了。
+
+#### [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+
+将两个升序链表合并为一个新的 **升序** 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+
+解：线性扫描是什么垃圾。这题的模板可以用来解决很多链表两个长度不一而且可能是 `None` 的情形，代码贴贴：
+
+```python
+prev = ListNode() # 哨兵防止返回的就是空
+now = prev 
+while list1 and list2: # 有点牛
+  if list1.val < list2.val:
+    now.next = list1
+    now = now.next
+    list1 = list1.next # 注意细节
+  else:
+    now.next = list2
+    now = now.next
+    list2 = list2.next
+  now.next = list1 if list1 else list2 if list2 else None # 一个扫完了另一个直接挂上
+return prev.next # 返回哨兵的下一个
+```
+
+ 

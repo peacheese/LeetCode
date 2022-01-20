@@ -1,9 +1,5 @@
-import enum
 from functools import cmp_to_key
-from sre_constants import MAX_UNTIL
-from time import time
-from tkinter.tix import Tree
-from typing import List
+from typing import *
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -219,10 +215,27 @@ class Solution:
             else:
                 del(window[0])
         return maxlen
-            
-        
+    #21
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        prev = ListNode()
+        now = prev
+        while list1 and list2:
+            if list1.val < list2.val:
+                now.next = list1
+                now = now.next
+                list1 = list1.next
+            else:
+                now.next = list2
+                now = now.next
+                list2 = list2.next
+        now.next = list1 if list1 else list2 if list2 else None
+        return prev.next
+
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.lengthOfLongestSubstring("bpoiexpqhmebhhu"))
+    list1 = ListNode(1)
+    list1.next = ListNode(2)
+    list2 = ListNode(1.5)
+    print(solution.mergeTwoLists(list2, list1))
 
