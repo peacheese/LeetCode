@@ -160,3 +160,15 @@ return prev.next # 返回哨兵的下一个
 给你一个字符串 `s`，找到 `s` 中最长的回文子串。
 
 解：枚举一个或者两个，然后中心拓展。还有一种更简单的 O(n) 算法，懒得看了。
+
+#### [28. 实现 strStr()](https://leetcode-cn.com/problems/implement-strstr/)
+
+给你两个字符串 `haystack` 和 `needle` ，请你在 `haystack` 字符串中找出 `needle` 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  `-1` 。
+
+解：简单题你来 KMP？我直接 find 拜拜了您。注意 index 这个 API 如果找不到会报错。
+
+**$KMP$ 算法**：
+
+
+
+

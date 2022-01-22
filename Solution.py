@@ -289,10 +289,13 @@ class Solution:
                     maxpalind = palind
             print(palind)
         return maxpalind
-
+    #28
+    def strStr(self, haystack: str, needle: str) -> int:
+        # return haystack.find(needle)
+        
 
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.longestPalindrome("abbcccbbbcaaccbababcbcabca"))
+    print(solution.strStr("abc", "bd"))
 
