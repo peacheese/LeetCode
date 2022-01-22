@@ -1,5 +1,7 @@
 from functools import cmp_to_key
+from re import L
 from typing import *
+from urllib.request import parse_keqv_list
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -246,10 +248,51 @@ class Solution:
                 nums[i] = num
                 i += 1
         return i
+    #5
+    def longestPalindrome(self, s: str) -> str:
+        maxlen = 0
+        maxpalind = ''
+        for i, ch in enumerate(s):
+            begin = i
+            end = i
+            palind = ch
+            while True:
+                if 0 < begin and end < len(s) - 1:
+                    begin -= 1
+                    end += 1
+                    if s[begin] == s[end]:
+                        palind = s[begin] + palind + s[end]  
+                    else:
+                        break
+                else:
+                    break
+            print(palind)
+            if len(palind) > maxlen:
+                maxlen = len(palind)
+                maxpalind = palind
+            if i < len(s) - 1 and s[i + 1] == ch:
+                begin = i
+                end = i + 1
+                palind = ch + ch
+                while True:
+                    if 0 < begin and end < len(s) - 1:
+                        begin -= 1
+                        end += 1
+                        if s[begin] == s[end]:
+                            palind = s[begin] + palind + s[end]  
+                        else:
+                            break
+                    else:
+                        break
+                if len(palind) > maxlen:
+                    maxlen = len(palind)
+                    maxpalind = palind
+            print(palind)
+        return maxpalind
 
 
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.removeDuplicates([1, 2, 2, 4, 5, 6, 6, 7]))
+    print(solution.longestPalindrome("abbcccbbbcaaccbababcbcabca"))
 

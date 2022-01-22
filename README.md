@@ -155,5 +155,8 @@ return prev.next # 返回哨兵的下一个
 
 解：双指针。
 
+#### [5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
 
+给你一个字符串 `s`，找到 `s` 中最长的回文子串。
 
+解：枚举一个或者两个，然后中心拓展。还有一种更简单的 O(n) 算法，懒得看了。
