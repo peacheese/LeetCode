@@ -167,7 +167,7 @@ return prev.next # 返回哨兵的下一个
 
 解：简单题你来 KMP？我直接 find 拜拜了您。注意 index 这个 API 如果找不到会报错。
 
-**$KMP$ 算法**：
+**KMP 算法**：
 
 
 
