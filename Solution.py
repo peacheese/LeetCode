@@ -1,7 +1,5 @@
 from functools import cmp_to_key
-from re import L
 from typing import *
-from urllib.request import parse_keqv_list
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -292,10 +290,20 @@ class Solution:
     #28
     def strStr(self, haystack: str, needle: str) -> int:
         # return haystack.find(needle)
-        
+        pass
+    #35
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        if len(nums) == 1:
+            return 0 if target <= nums[0] else 1
+        if nums[len(nums) // 2] < target:
+            return len(nums) // 2 + self.searchInsert(nums[len(nums) // 2 : len(nums)], target)
+        else:
+            return self.searchInsert(nums[0 : len(nums) // 2], target)
+    
+
 
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.strStr("abc", "bd"))
+    print(solution.searchInsert([1], 0))
 
