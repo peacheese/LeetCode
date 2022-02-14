@@ -299,11 +299,26 @@ class Solution:
             return len(nums) // 2 + self.searchInsert(nums[len(nums) // 2 : len(nums)], target)
         else:
             return self.searchInsert(nums[0 : len(nums) // 2], target)
-    
+    #540
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        mid = len(nums) // 2
+        if not mid:
+            return nums[mid]
+        if nums[mid + 1] == nums[mid]:
+            return self.singleNonDuplicate(nums[0:mid]) if mid % 2 else self.singleNonDuplicate(nums[mid+2:len(nums)])
+        elif nums[mid - 1] == nums[mid]:
+            return self.singleNonDuplicate(nums[mid+1:len(nums)]) if mid % 2 else self.singleNonDuplicate(nums[0:mid-1])  
+        else:
+            return nums[mid]
 
 
+            
+        
 
+
+        
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.searchInsert([1], 0))
+    print(solution.singleNonDuplicate([3,3,7,7,10,11,11]
+))
 
