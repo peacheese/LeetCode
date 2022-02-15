@@ -1,5 +1,7 @@
 from functools import cmp_to_key
+from operator import index
 from typing import *
+
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -310,15 +312,30 @@ class Solution:
             return self.singleNonDuplicate(nums[mid+1:len(nums)]) if mid % 2 else self.singleNonDuplicate(nums[0:mid-1])  
         else:
             return nums[mid]
+    #1380
+    def luckyNumbers(self, matrix: List[List[int]]) -> List[int]:
+        res = []
+        matrxi = list(zip(*matrix))
+        mask = [True] * len(matrxi)
+        for line in matrix:
+            target = min(line)
+            index = line.index(target)
+            if not mask[index]:
+                continue
+            if target == max(matrxi[index]):
+                res.append(target)
+                mask[index] = False
+        return res
 
 
-            
+
+
+
         
 
 
         
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.singleNonDuplicate([3,3,7,7,10,11,11]
-))
+    print(solution.luckyNumbers([[1,10,4,2],[9,3,8,7],[15,16,17,12]]))
 
