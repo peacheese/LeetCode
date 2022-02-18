@@ -1,7 +1,5 @@
 from functools import cmp_to_key
-from operator import index
 from typing import *
-
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -318,24 +316,50 @@ class Solution:
         matrxi = list(zip(*matrix))
         mask = [True] * len(matrxi)
         for line in matrix:
-            target = min(line)
-            index = line.index(target)
+            # target = min(line)
+            # index = line.index(target)
+            target = 0xffffff
+            index = 0
+            for i, elem in enumerate(line):
+                if elem < target:
+                    index = i
+                    target = elem
             if not mask[index]:
                 continue
             if target == max(matrxi[index]):
                 res.append(target)
                 mask[index] = False
         return res
+    #1719
+    def checkWays(self, pairs: List[List[int]]) -> int:
+        existSet = {}
+        relatSet = {}
+        for pair in pairs:
+            for i in range(2):
+                if pair[i] in existSet:
+                    existSet[pair[i]] += 1
+                    relatSet[pair[i]].append(pair[1-i])
+                else:
+                    existSet[pair[i]] = 1
+                    relatSet[pair[i]] = [pair[1-i], pair[i]]
+        existRoot = False
+        for exist in existSet:
+            existRoot |= existSet[exist] == len(existSet)-1
+        if not existRoot:
+            return 0
+        moreWays = False
+        for pair in pairs:
+            for i in range(2):
+                if existSet[pair[i]] >= existSet[pair[1-i]]:
+                    if len(set(relatSet[pair[1-i]]).difference(relatSet[pair[i]])):
+                        return 0
+                    if not moreWays:
+                        moreWays |= set(relatSet[pair[1-i]]) == set(relatSet[pair[i]])
+        return 2 if moreWays else 1
+    #1791
+    def findCenter(self, edges: List[List[int]]) -> int:
+        return edges[0][0] if edges[0][0] in edges[1] else edges[0][1]
 
-
-
-
-
-        
-
-
-        
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.luckyNumbers([[1,10,4,2],[9,3,8,7],[15,16,17,12]]))
-
+    print(solution.findCenter([[1,2],[2,3],[4,2]]))
