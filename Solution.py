@@ -308,7 +308,7 @@ class Solution:
             return self.singleNonDuplicate(nums[0:mid]) if mid % 2 else self.singleNonDuplicate(nums[mid+2:len(nums)])
         elif nums[mid - 1] == nums[mid]:
             return self.singleNonDuplicate(nums[mid+1:len(nums)]) if mid % 2 else self.singleNonDuplicate(nums[0:mid-1])  
-        else:
+        else: 
             return nums[mid]
     #1380
     def luckyNumbers(self, matrix: List[List[int]]) -> List[int]:
@@ -359,7 +359,15 @@ class Solution:
     #1791
     def findCenter(self, edges: List[List[int]]) -> int:
         return edges[0][0] if edges[0][0] in edges[1] else edges[0][1]
+    #717
+    def isOneBitCharacter(self, bits: List[int]) -> bool:
+        i, j = 0, len(bits)
+        while i < j:
+            if i == j - 1 and not bits[i]: return True
+            i = i + 2 if bits[i] else i + 1
+        return False
+
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.findCenter([[1,2],[2,3],[4,2]]))
+    print(solution.isOneBitCharacter([0, 0, 0]))
