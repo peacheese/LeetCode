@@ -1,5 +1,8 @@
 from functools import cmp_to_key
 from typing import *
+from xml import dom
+
+from sqlalchemy import false
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -366,6 +369,25 @@ class Solution:
             if i == j - 1 and not bits[i]: return True
             i = i + 2 if bits[i] else i + 1
         return False
+    #838
+    def pushDominoes(self, dominoes: str) -> str:
+        ans = []
+        dominoes = 'L' + dominoes + 'R'
+        left = 0
+        for right in range(1, len(dominoes)):
+            if dominoes[right] == '.':
+                continue
+            mid = right - left - 1
+            if left:
+                ans.append(dominoes[left])
+            if dominoes[left] == 'R' and dominoes[right] == 'L':
+                ans.append('R' * (mid // 2) + '.' * (mid % 2) + 'L' * (mid // 2))
+            elif dominoes[right] == dominoes[left]:
+                ans.append(mid * dominoes[right])
+            else:
+                ans.append(mid * '.')
+            left = right
+        return ''.join(ans)
 
 
 if __name__ == '__main__':
