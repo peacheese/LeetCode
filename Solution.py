@@ -389,7 +389,16 @@ class Solution:
             left = right
         return ''.join(ans)
 
+    def maximumDifference(self, nums: List[int]) -> int:
+        l, r, d = 0, 1, -1
+        while r < len(nums):
+            d = max(d, nums[r] - nums[l])
+            l = r - 1 if nums[r] < nums[l] else l
+            r += 1
+        return d if d else -1
+            
+
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.isOneBitCharacter([0, 0, 0]))
+    print(solution.maximumDifference([1,5,2,10]))
