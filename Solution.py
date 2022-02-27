@@ -1,4 +1,5 @@
 from functools import cmp_to_key
+from tkinter import S
 from typing import *
 from xml import dom
 
@@ -388,7 +389,7 @@ class Solution:
                 ans.append(mid * '.')
             left = right
         return ''.join(ans)
-
+    #2016
     def maximumDifference(self, nums: List[int]) -> int:
         l, r, d = 0, 1, -1
         while r < len(nums):
@@ -396,9 +397,15 @@ class Solution:
             l = r - 1 if nums[r] < nums[l] else l
             r += 1
         return d if d else -1
-            
+    #553
+    def optimalDivision(self, nums: List[int]) -> str: 
+        s = list(map(str, nums))
+        return (s[0] if len(nums) == 1 
+            else s[0] + '/' + s[1] if len(nums) == 2
+            else s[0] + '/(' + '/'.join(s[1:]) + ')')
+
 
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.maximumDifference([1,5,2,10]))
+    print(solution.optimalDivision([2,4,5,6]))
