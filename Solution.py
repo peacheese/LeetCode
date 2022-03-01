@@ -403,9 +403,28 @@ class Solution:
         return (s[0] if len(nums) == 1 
             else s[0] + '/' + s[1] if len(nums) == 2
             else s[0] + '/(' + '/'.join(s[1:]) + ')')
+    #6
+    def convert(self, s: str, numRows: int) -> str:
+        if not numRows - 1:
+            return s
+        div = 2 * numRows - 2
+        res, k = '', len(s) // div + 1
+        for j in range(numRows):
+            for i in range(k):
+                if i * div + j >= len(s):
+                    break
+                if not j or not numRows - j - 1:
+                    res += s[i * div + j]
+                else:
+                    res += s[i * div + j] 
+                    if (i + 1) * div - j < len(s):
+                        res += s[(i + 1) * div - j]
+        return res
+
+                    
 
 
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.optimalDivision([2,4,5,6]))
+    print(solution.convert("PAYPALISHIRING",4))
