@@ -420,11 +420,16 @@ class Solution:
                     if (i + 1) * div - j < len(s):
                         res += s[(i + 1) * div - j]
         return res
-
-                    
-
-
+    #564
+    def nearestPalindromic(self, n: str) -> str:
+        if set(n[1:]) == {'0'} and n[0] == '1': return str(int(n)-1)
+        if (set(n[1:-1]) == {'0'} or len(n) == 2) and n[0] == n[-1] == '1': return str(int(n)-2)
+        if set(n) == {'9'} and len(n) > 1: return str(int(n)+2)
+        left, n0 = int(n[0:(len(n)+1)//2]), int(n)
+        t1, t2, t3 = str(left-1), str(left), str(left+1)
+        (n1, n2, n3) = tuple(map(int, (t1+t1[::-1], t2+t2[::-1], t3+t3[::-1]))) if not len(n)%2 else tuple(map(int, (t1+t1[:-1][::-1], t2+t2[:-1][::-1], t3+t3[:-1][::-1])))
+        return str(n1) if abs(n1-n0) <= abs(n2-n0) or n2 == n0 and abs(n1-n0) <= abs(n3-n0) else str(n2) if abs(n2-n0) <= abs(n3-n0) and abs(n2-n0) else str(n3)
 
 if __name__ == '__main__':
     solution = Solution()
-    print(solution.convert("PAYPALISHIRING",4))
+    print(solution.nearestPalindromic("500"))
